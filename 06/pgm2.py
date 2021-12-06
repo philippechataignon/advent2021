@@ -10,7 +10,6 @@ def main():
         c[n] += 1
 
     for i in range(256):
-        print(c)
         tmp = c[0]
         for n in range(1,9):
             c[n-1] = c[n]
