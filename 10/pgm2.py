@@ -33,12 +33,10 @@ def main():
             score = 0
             if t:
                 for c in reversed(stack):
-                    score *= 5
-                    score += pts[c]
+                    score = 5 * score + pts[c]
                 scores.append(score)
     scores.sort()
     print(scores[len(scores) // 2])
 
 if __name__ == '__main__':
     main()
-
