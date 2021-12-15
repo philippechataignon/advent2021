@@ -1,37 +1,37 @@
 #!/usr/bin/env python3
 def main():
     adj = {}
-    with open("test.txt") as f:
+    with open("input.txt") as f:
         for l in f:
             a, b = l[:-1].split("-")
-            print(a,b)
             if not a in adj:
                 adj[a] = []
             if not b in adj:
                 adj[b] = []
             adj[a].append(b)
             adj[b].append(a)
-    print(has_path(adj, "start", "end"))
+    get_path(adj, "start", "end")
 
-def has_path(adj, src, dst, visited=None):
+def get_path(adj, src, dst, visited=None, path=None):
     if visited is None:
         visited = set()
-
-    if (src == dst):
-        return True
-
-    if src in visited:
-        return False
+    if path is None:
+        path = []
 
     if "a" <= src[0] <= "z":
         visited.add(src)
 
-    for n in adj[src]:
-        if has_path(adj, n, dst, visited):
-            return True
+    path.append(src)
 
-    return False
+    if (src == dst):
+        print(path)
+    else:
+        for n in adj[src]:
+            if n not in visited:
+                r = get_path(adj, n, dst, visited, path)
+    path.pop()
+    if src in visited:
+        visited.remove(src)
 
 if __name__ == '__main__':
     main()
-
