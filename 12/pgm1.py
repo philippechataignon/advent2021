@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 def main():
     adj = {}
-    with open("input.txt") as f:
+    with open("test.txt") as f:
         for l in f:
             a, b = l[:-1].split("-")
             if not a in adj:
@@ -11,8 +11,12 @@ def main():
             adj[a].append(b)
             adj[b].append(a)
     get_path(adj, "start", "end")
+    print(len(res))
+
+res = []
 
 def get_path(adj, src, dst, visited=None, path=None):
+    global res
     if visited is None:
         visited = set()
     if path is None:
@@ -24,7 +28,7 @@ def get_path(adj, src, dst, visited=None, path=None):
     path.append(src)
 
     if (src == dst):
-        print(path)
+        res.append(path.copy())
     else:
         for n in adj[src]:
             if n not in visited:
