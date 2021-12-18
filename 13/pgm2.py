@@ -10,7 +10,7 @@ def get(g, r, c):
         return g.get((r, c), 0)
 
 def fold(sens, val):
-    global g
+    global g, R, C
     if sens == "y":
         for c in range(C):
             for r in range(val):
@@ -29,8 +29,9 @@ def fold(sens, val):
         print("Error: sens")
 
 def display(g):
+    maxr = maxc = 0
     for r in range(R):
-        print([get(g, r, c) for c in range(C)])
+        print("".join(["*" if get(g, r, c) == 1 else " " for c in range(C)]))
 
 def main():
     global C,R
@@ -48,14 +49,14 @@ def main():
             C = c
     R += 1
     C += 1
-    print(R, C)
-    print(sum([get(g, r, c) for r in range(R) for c in range(C)]))
-    cmd = f.readline()
-    sens, val = cmd[11:-1].split("=")
-    val = int(val)
-    print(sens, val)
-    fold(sens, val)
-    print(sum([get(g, r, c) for r in range(R) for c in range(C)]))
+    while True:
+        cmd = f.readline()
+        if cmd == "":
+            break
+        sens, val = cmd[11:-1].split("=")
+        val = int(val)
+        fold(sens, val)
+    display(g)
 
 if __name__ == '__main__':
     main()
